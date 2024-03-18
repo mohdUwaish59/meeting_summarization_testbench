@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarization Tool</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.0.6/wordcloud2.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+    <style>
+        /* Custom CSS styles */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container-fluid {
+            max-width: 800px;
+        }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+        .metric-scores {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center mt-5 mb-4">Summarization Tool</h1>
+        <!-- Form to input model link -->
+        <form id="summarizationForm" class="mb-4">
+            <div class="form-group">
+                <label for="modelLink" class="font-weight-bold">Enter Model Link:</label>
+                <input type="text" id="modelLink" name="modelLink" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Summarize</button>
+        </form>
+        <!-- Display generated summary and metric scores -->
+        <div id="summarySection" class="mb-4">
+            <h2 class="text-center mb-3">Summary Details</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Original Summary:</h5>
+                    <p id="originalSummary" class="card-text"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Generated Summary:</h5>
+                    <p id="generatedSummary" class="card-text"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Metric Scores:</h5>
+                    <pre id="metricScores" class="metric-scores"></pre>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Compression Ratio:</h5>
+                    <p id="compressionRatio"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Words:</h5>
+                    <p id="totalWords"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Unique Words:</h5>
+                    <p id="uniqueWords"></p>
+                </div>
+            </div>
+        </div>
+        <!-- Container for histograms -->
+        <div id="histogramContainer" class="mb-4">
+            <!-- Histograms will be rendered here -->
+        </div>
+        <div id="WordCloudContainer" class="mb-4">
+            <!-- Word clouds will be rendered here -->
+            <div id="unigramsWordCloud" class="mb-4"></div>
+            <div id="bigramsWordCloud" class="mb-4"></div>
+            <div id="trigramsWordCloud" class="mb-4"></div>
+        </div>
+        <canvas id="histogram" width="50" height="50" class="mb-4"></canvas>
+    </div>
+    <!-- Include script.js -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

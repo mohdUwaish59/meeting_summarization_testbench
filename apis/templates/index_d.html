@@ -1,0 +1,34 @@
+{% load static %}
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarization Tool</title>
+</head>
+<body>
+    <h1>Summarization Tool</h1>
+    
+    <!-- Form to input model link -->
+    <form id="summarizationForm">
+        <label for="modelLink">Model Link:</label>
+        <input type="text" id="modelLink" name="modelLink" required>
+        <button type="submit">Summarize</button>
+    </form>
+    
+    <!-- Display generated summary and metric scores -->
+    <div id="summarySection">
+        <h2>Generated Summary:</h2>
+        <p id="generatedSummary"></p>
+        <h2>Metric Scores:</h2>
+        <p id="metricScores"></p>
+    </div>
+    
+    <!-- Button to view detailed report -->
+    <button id="detailedReportButton">View Detailed Report</button>
+    
+    <!-- Include script.js -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
